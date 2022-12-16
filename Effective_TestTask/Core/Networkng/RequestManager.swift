@@ -11,7 +11,7 @@ protocol RequestManagerProtocol {
   func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T
 }
 
-class RequestManager {
+final class RequestManager {
     
     // MARK: - Properties
     

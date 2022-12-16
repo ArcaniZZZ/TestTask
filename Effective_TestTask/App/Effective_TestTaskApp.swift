@@ -11,7 +11,7 @@ import SwiftUI
 struct Effective_TestTaskApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(viewModel: .init(requestManager: RequestManager()))
         }
     }
 }
