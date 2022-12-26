@@ -6,16 +6,17 @@
 //
 
 struct Product: Codable, Hashable {
-    let CPU: String
-    let camera: String
-    let capacity: [String]
-    let color: [String]
+    let cpu, camera: String
+    let capacity, color: [String]
     let id: String
     let images: [String]
     let isFavorites: Bool
     let price: Int
     let rating: Double
-    let sd: String
-    let ssd: String
-    let title: String
+    let sd, ssd, title: String
+    
+    enum CodingKeys: String, CodingKey {
+        case cpu = "CPU"
+        case camera, capacity, color, id, images, isFavorites, price, rating, sd, ssd, title
+    }
 }

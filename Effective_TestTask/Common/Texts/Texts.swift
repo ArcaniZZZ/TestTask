@@ -39,5 +39,6 @@ enum Texts {
     static let detailFeatureTabTitle = "Features"
     static let detailSelectColorAndCapacity = "Select color and capacity"
     static let detailAddToCartButtonTitle = "Add to cart"
+    static let detailsSelectColorAndCapacity = "Select color and capacity"
 
 }

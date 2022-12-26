@@ -14,6 +14,12 @@ extension View {
         frame(width: size?.width, height: size?.height, alignment: alignment)
     }
     
+    /// Создает квадратный фрейм
+    func squaredFrame(squareSide: CGFloat, alignment: Alignment = .center) -> some View {
+        frame(width: squareSide, height: squareSide, alignment: alignment)
+    }
+    
+    
     func bottomSheet(
         viewModel: BottomSheetModifier.Model,
         isShowing: Binding<Bool>

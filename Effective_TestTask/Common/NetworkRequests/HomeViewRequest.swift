@@ -5,10 +5,10 @@
 //  Created by Arcani on 15.12.2022.
 //
 
-struct MainScreenRequest: RequestProtocol {
+struct HomeViewRequest: RequestProtocol {
     
     var path: String {
-        Constants.Networking.mainScreenRequestPath
+        Constants.Networking.homeScreenRequestPath
     }
     
     var requestType: RequestType {

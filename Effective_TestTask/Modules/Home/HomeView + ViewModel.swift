@@ -57,7 +57,7 @@ extension HomeView {
         
         @MainActor
         func viewIsReady() async throws {
-            mainScreenModel = try await requestManager.perform(MainScreenRequest())
+            mainScreenModel = try await requestManager.perform(HomeViewRequest())
         }
         
         

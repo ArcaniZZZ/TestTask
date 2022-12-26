@@ -21,6 +21,7 @@ struct TitleView: View {
     var body: some View {
         HStack {
             Text(title)
+                .foregroundColor(.black)
                 .font(BrandFontStyle.bold(25).font)
             Spacer()
             Button(action: buttonAction) {

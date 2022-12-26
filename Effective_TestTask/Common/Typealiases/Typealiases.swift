@@ -13,6 +13,9 @@ typealias BrandColor = UIConstants.BrandColor
 /// UIConstants.BrandFont
 typealias BrandFontStyle = UIConstants.BrandFont
 
+/// UIConstants.ScreenSize
+typealias ScreenSize = UIConstants.ScreenSize
+
 /// () -> ()
 typealias SimpleClosure = () -> Void
 

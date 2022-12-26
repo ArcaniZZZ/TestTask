@@ -12,6 +12,7 @@ struct LocationView: View {
         HStack(spacing: 12) {
             Images.locationPin()?.image
             Text("Zihuatanejo, Gro")
+                .foregroundColor(.black)
             Images.dropDownArrow()?.image
         }
     }

@@ -34,35 +34,9 @@ final class MainFlowCoordinator: Coordinator {
     }
     
     func didChooseProduct() {
-        
-        let detailView = DetailView(
-            viewModel: .init(
-                product: .init(
-                    CPU: "M1",
-                    camera: "12 mp",
-                    capacity: ["128", "256"],
-                    color: [],
-                    id: "1",
-                    images: [
-                        "https://avatars.mds.yandex.net/get-mpic/5235334/img_id5575010630545284324.png/orig",
-                        "https://www.manualspdf.ru/thumbs/products/l/1260237-samsung-galaxy-note-20-ultra.jpg",
-                        "https://picsum.photos/200/302"
-                    ],
-                    isFavorites: true,
-                    price: 1000,
-                    rating: 4.5,
-                    sd: "256 GB",
-                    ssd: "8 GB",
-                    title: "Galaxy Note 20 Ultra"
-                )
-            )
-        )
-        
+        let detailView = DetailView(viewModel: .init(requestManager: RequestManager()))
         let viewController = UIHostingController(rootView: detailView)
-        
         rootViewController.pushViewController(viewController, animated: true)
-        
-        
     }
     
     

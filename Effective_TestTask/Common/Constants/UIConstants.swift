@@ -9,6 +9,17 @@ import SwiftUI
 
 enum UIConstants {
     
+    // MARK: - Screen Size
+    
+    enum ScreenSize {
+        
+        /// and SE(gen 2), 8, 7, 6s, 6
+        static var isSE3GenAndSmaller: Bool {
+            UIScreen.main.bounds.height <= 667
+        }
+        
+    }
+    
     // MARK: - BrandColors
     
     enum BrandColor {

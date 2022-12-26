@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ShopTabView: View {
     
-    let cpu: String
-    let camera: String
-    let ssd: String
-    let sd: String
+    let cpu: String?
+    let camera: String?
+    let ssd: String?
+    let sd: String?
     
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
@@ -52,12 +52,12 @@ struct ShopTabView_Previews: PreviewProvider {
 struct InfoView: View {
     
     let image: Image?
-    let subtitle: String
+    let subtitle: String?
     
     var body: some View {
         VStack {
             image
-            Text(subtitle)
+            Text(subtitle ?? "")
                 .font(BrandFontStyle.regular(14).font)
                 .foregroundColor(.gray)
         }.frame(alignment: .centerFirstTextBaseline)

@@ -17,7 +17,7 @@ struct InfoTabView<Content: View>: View {
     @ViewBuilder
     var content: Content
     
-
+    
     // MARK: - Init
     
     init(@ViewBuilder content: () -> Content) {
@@ -28,76 +28,73 @@ struct InfoTabView<Content: View>: View {
     // MARK: - Drawing
     
     var body: some View {
-        
         VStack {
             GeometryReader { outerView in
                 VStack(spacing: 0) {
-                    GeometryReader { innerView in
-                        VStack(spacing: 0) {
-                            HStack(spacing: 0) {
-                                TabTextView(
-                                    currentSelection: $selection,
-                                    title: Texts.detailShoTabTitle,
-                                    tag: 0
-                                )
-                                .frame(width: outerView.size.width / 3)
-                                TabTextView(
-                                    currentSelection: $selection,
-                                    title: Texts.detailsTabTitle,
-                                    tag: 1
-                                )
-                                .frame(width: outerView.size.width / 3)
-                           Spacer()
-                                TabTextView(
-                                    currentSelection: $selection,
-                                    title: Texts.detailFeatureTabTitle,
-                                    tag: 2
-                                )
-                                .frame(width: outerView.size.width / 3)
-                                
-                            }
-                            .frame(width: outerView.size.width)
-                            .padding(.bottom, 8)
-                            
-                            Rectangle().frame(width: outerView.size.width / 3, height: 3)
-                                .offset(
-                                    x: calculateXOffset(
-                                        viewWidth: outerView.size.width,
-                                        barWidth: outerView.size.width * 0.2,
-                                        tabsHorizontalPadding: 20
-                                    )
-                                )
-                                .foregroundColor(BrandColor.button.color)
-                                .animation(
-                                    .interpolatingSpring(
-                                        mass: 1,
-                                        stiffness: 100,
-                                        damping: 100,
-                                        initialVelocity: 1
-                                    ),
-                                    value: selection
-                                )
-                                .padding(.bottom, 32)
-                        }.frame(width: outerView.size.width)
-                    }.frame(height: 34)
-                    
-                    TabView(selection: $selection) {
-                        content
+                    HStack(spacing: 0) {
+                        TabTextView(
+                            currentSelection: $selection,
+                            title: Texts.detailShoTabTitle,
+                            tag: 0
+                        )
+                        .frame(width: outerView.size.width / 3)
+                        TabTextView(
+                            currentSelection: $selection,
+                            title: Texts.detailsTabTitle,
+                            tag: 1
+                        )
+                        .frame(width: outerView.size.width / 3)
+                        TabTextView(
+                            currentSelection: $selection,
+                            title: Texts.detailFeatureTabTitle,
+                            tag: 2
+                        )
+                        .frame(width: outerView.size.width / 3)
+                        
                     }
-                    .animation(
-                        .interpolatingSpring(
-                            mass: 1,
-                            stiffness: 100,
-                            damping: 100,
-                            initialVelocity: 1
-                        ),
-                        value: selection
-                    )
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .frame(width: outerView.size.width)
+                    .padding(.bottom, 8)
                     
-                    Spacer()
-                }
+                    Rectangle().frame(width: outerView.size.width / 3, height: 3)
+                        .offset(
+                            x: calculateXOffset(
+                                viewWidth: outerView.size.width,
+                                barWidth: outerView.size.width * 0.2
+                            )
+                        )
+                        .foregroundColor(BrandColor.button.color)
+                        .animation(
+                            .interpolatingSpring(
+                                mass: 1,
+                                stiffness: 100,
+                                damping: 100,
+                                initialVelocity: 1
+                            ),
+                            value: selection
+                        )
+                        .padding(.bottom, 32)
+                }.frame(width: outerView.size.width)
             }
+            .frame(height: 34)
+            
+            TabView(selection: $selection) {
+                content
+            }
+            .frame(height: 60)
+            .padding(.top, 32)
+   
+            .animation(
+                .interpolatingSpring(
+                    mass: 1,
+                    stiffness: 100,
+                    damping: 100,
+                    initialVelocity: 1
+                ),
+                value: selection
+            )
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+
+            Spacer()
         }
     }
     
@@ -106,8 +103,7 @@ struct InfoTabView<Content: View>: View {
     
     private func calculateXOffset(
         viewWidth: CGFloat,
-        barWidth: CGFloat,
-        tabsHorizontalPadding: CGFloat
+        barWidth: CGFloat
     ) -> CGFloat {
         
         let offset = barWidth / 1.3
@@ -121,6 +117,7 @@ struct InfoTabView<Content: View>: View {
             return halfViewWidth - offset
         }
     }
+    
 }
 
 struct InfoTabView_Previews: PreviewProvider {
@@ -165,7 +162,7 @@ struct TabTextView: View {
                 .font(
                     isSelected ? BrandFontStyle.bold(20).font : BrandFontStyle.regular(20).font
                 )
-                
+            
         }
     }
 }
