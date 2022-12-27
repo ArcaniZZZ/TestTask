@@ -81,7 +81,7 @@ struct InfoTabView<Content: View>: View {
                 content
             }
             .frame(height: 60)
-            .padding(.top, 32)
+            .padding(.top, ScreenSize.isSE3GenAndSmaller ? 15 : 32)
    
             .animation(
                 .interpolatingSpring(

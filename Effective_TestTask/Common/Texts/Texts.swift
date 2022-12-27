@@ -34,11 +34,13 @@ enum Texts {
     
     // MARK: - DetailView
     
+    static let detailTitle = "Product Details"
     static let detailShoTabTitle = "Shop"
     static let detailsTabTitle = "Details"
     static let detailFeatureTabTitle = "Features"
     static let detailSelectColorAndCapacity = "Select color and capacity"
     static let detailAddToCartButtonTitle = "Add to cart"
     static let detailsSelectColorAndCapacity = "Select color and capacity"
+    static let detailsAddToCartButtonTitle = "Add to Cart"
 
 }

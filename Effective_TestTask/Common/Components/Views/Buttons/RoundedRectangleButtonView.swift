@@ -86,7 +86,7 @@ struct RoundedRectangleButtonView: View {
                     .frame(geometry.size)
                     .foregroundColor(foregroundColor)
                     .background(Rectangle()
-                        .cornerRadius(5)
+                        .cornerRadius(10)
                         .foregroundColor(backgroundColor))
             }
             .disabled(!isEnabled)

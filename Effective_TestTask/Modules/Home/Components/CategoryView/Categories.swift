@@ -1,5 +1,5 @@
 //
-//  Category.swift
+//  Categories.swift
 //  Effective_TestTask
 //
 //  Created by Arcani on 16.12.2022.

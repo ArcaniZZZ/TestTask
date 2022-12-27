@@ -14,6 +14,7 @@ extension DetailView {
         // MARK: - Type aliases
         
         typealias ProductColor = ProductColors.ProductColor
+        typealias Capacity = ProductCapacities.Capacity
         
         
         // MARK: - Properties
@@ -24,8 +25,15 @@ extension DetailView {
         @Published
         private var productColorsModel: ProductColors?
         
+        @Published
+        private var memoryCapacitiesModel: ProductCapacities?
+        
         var productColors: [ProductColor]? {
             productColorsModel?.productColors
+        }
+        
+        var productCapacities: [Capacity]? {
+            memoryCapacitiesModel?.productCapacities
         }
         
         private let requestManager: RequestManagerProtocol
@@ -38,10 +46,14 @@ extension DetailView {
         }
         
         
-        // MARK: - Public Method
+        // MARK: - Public Methods
         
         func didChooseColor(_ hex: String) {
             productColorsModel?.didChooseColor(hex)
+        }
+        
+        func didChooseCapacity(_ capacity: String) {
+            memoryCapacitiesModel?.didChooseCapacity(capacity)
         }
         
         func selectFirstColor() {
@@ -53,6 +65,7 @@ extension DetailView {
             do {
                 product = try await requestManager.perform(DetailViewRequest())
                 productColorsModel = createColorButtons(product?.color ?? [])
+                memoryCapacitiesModel = createCapacityButtons(capacities: product?.capacity ?? [])
             } catch {
                 print("Error decoding DetailView model")
             }
@@ -67,6 +80,10 @@ extension DetailView {
             return colors
         }
         
+        private func createCapacityButtons(capacities: [String]) -> ProductCapacities {
+            var capacities = ProductCapacities(productCapacities: capacities)
+            capacities.selectFirstCapacity()
+            return capacities
+        }
     }
-
 }

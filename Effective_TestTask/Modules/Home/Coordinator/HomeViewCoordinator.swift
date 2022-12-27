@@ -27,6 +27,6 @@ final class HomeViewCoordinator: Coordinator {
     
     func start() { 
         let view = HomeView(viewModel: self.homeViewViewModel)
-        rootViewController = UIHostingController(rootView: view)
+        rootViewController = CommonHostingViewController(wrappedView: .home, rootView: view)
     }
 }

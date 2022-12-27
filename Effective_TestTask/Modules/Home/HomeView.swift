@@ -119,17 +119,16 @@ struct HomeView: View {
                                         if let didChooseProduct = viewModel.didChooseProductAction {
                                             didChooseProduct()
                                         }
-                                    
+                                        
                                     }
-                                    
                                 }
                             }
                         }
-                    }
+                    }.padding(.horizontal)
                     
                     Spacer().frame(height: Locals.tabBarHeight)
                     
-                }.padding(.horizontal)
+                }
             }
             .bottomSheet(
                 viewModel: .init(
@@ -152,6 +151,8 @@ struct HomeView: View {
                 try? await viewModel.viewIsReady()
             }
         }
+        .padding(.top, 25)
+        .padding(.horizontal)
         .background(UIConstants.BrandColor.background.color)
     }
     

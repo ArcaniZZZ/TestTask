@@ -43,9 +43,8 @@ struct DetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 0) {
                 GeometryReader { outerView in
-                    
                     let carouselImageWidth = outerView.size.width / Locals.carouselWidthRatio
                     let carouselImageHeight = carouselImageWidth * Locals.carouselImageAspectRatio
                     let scaledIHeight = carouselImageHeight * Locals.downscaleFactor
@@ -70,7 +69,7 @@ struct DetailView: View {
                                     : scaledIHeight
                                 )
                                 .cornerRadius(Locals.carouselImageCornerRadius)
-                                .shadow(radius: 20)
+                                .shadow(radius: 5, x: 0, y: 5)
                             }
                         }
                     }
@@ -93,7 +92,7 @@ struct DetailView: View {
                 }
                 .frame(height: ScreenSize.isSE3GenAndSmaller ? 300 : 350)
                 .padding(.top, 20)
-                .padding(.bottom, 14)
+                .padding(.bottom, ScreenSize.isSE3GenAndSmaller ? 10 : 20)
                 .animation(
                     .interpolatingSpring(
                         mass: 0.6,
@@ -104,12 +103,14 @@ struct DetailView: View {
                     value: dragOffset
                 )
                 
-                VStack {
+                LazyVStack {
                     HStack {
                         Text(viewModel.product?.title ?? "")
                             .font(UIConstants.BrandFont.semibold(24).font)
                             .foregroundColor(UIConstants.BrandColor.backgroundSecondary.color)
+                        
                         Spacer()
+                        
                         AddFavoriteButtonView(
                             buttonStyle: .rectangle,
                             isFavorite: viewModel.product?.isFavorites ?? false,
@@ -124,7 +125,7 @@ struct DetailView: View {
                         RatingView(amount: 5, rating: Int(4.5), color: Locals.ratingColor)
                             .frame(height: 18)
                         Spacer()
-                    }.padding(.bottom, 27)
+                    }.padding(.bottom, ScreenSize.isSE3GenAndSmaller ? 20 : 30)
                     
                     InfoTabView {
                         ShopTabView(
@@ -142,18 +143,18 @@ struct DetailView: View {
                         Text("🦊")
                             .font(BrandFontStyle.regular(70).font)
                             .tag(2)
-                    }.padding(.bottom, 29)
+                    }.padding(.bottom, ScreenSize.isSE3GenAndSmaller ? 20 : 30)
                     
                     HStack {
                         Text(Texts.detailSelectColorAndCapacity)
                             .foregroundColor(BrandColor.backgroundSecondary.color)
                             .font(BrandFontStyle.semibold(16).font)
                         Spacer()
-                    }
+                    }.padding(.bottom, 15)
                     
                     HStack {
                         ScrollView {
-                            HStack(spacing: 18) {
+                            LazyHStack(spacing: 18) {
                                 ForEach(viewModel.productColors ?? [], id: \.self) { color in
                                     ColoredCircleButton(isChosen: color.isChosen, color: color.hex)
                                         .onTapGesture {
@@ -161,30 +162,37 @@ struct DetailView: View {
                                         }
                                 }
                             }
-                            
                         }
+                        
                         Spacer()
                         
-                    }.frame(height: 50)
+                        ScrollView {
+                            HStack(spacing: 5) {
+                                ForEach(viewModel.productCapacities ?? [], id: \.self) { capacity in
+                                    CapacityView(capacity: capacity.capacity, isChosen: capacity.isChosen)
+                                        .onTapGesture {
+                                            viewModel.didChooseCapacity(capacity.capacity)
+                                        }
+                                }
+                            }.padding(.vertical, 5)
+                        }
+                    }.padding(.bottom, 26)
                     
-                    
-                    
-                    //
-                    //                        HStack(spacing: 20) {
-                    //                            RoundedRectangle(cornerRadius: 10)
-                    //                                .foregroundColor(.orange)
-                    //                                .frame(width: 72, height: 30)
-                    //                            RoundedRectangle(cornerRadius: 10)
-                    //                                .foregroundColor(.blue)
-                    //                                .frame(width: 72, height: 30)
-                    //                        }
-                    //                    }
+                    RoundedRectangleButtonView(
+                        title:
+                            Texts.detailsAddToCartButtonTitle + "   " +
+                            (viewModel.product?.price.formatAsPrice(currencyCode: "USD") ?? ""),
+                        action: didTapAddToCartButton
+                    )
+                    .frame(height: 54)
+                    .padding(.bottom, 30)
                 }
+                
                 .padding(.horizontal, 40)
                 .background(Color.white)
                 .cornerRadius(30)
-                
-            }.background(UIConstants.BrandColor.background.color)
+            }
+            .background(UIConstants.BrandColor.background.color)
         }.task {
             try? await viewModel.fetchProduct()
         }
@@ -194,6 +202,7 @@ struct DetailView: View {
     // MARK: - Private Methods
     
     private func didTapAddFavoriteButton() {}
+    private func didTapAddToCartButton() {}
     
 }
 

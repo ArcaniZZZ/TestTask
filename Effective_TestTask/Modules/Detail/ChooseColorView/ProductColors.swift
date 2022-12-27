@@ -17,14 +17,14 @@ struct ProductColors {
     
     // MARK: - Properties
     
-    private(set) var productColors = [ProductColor]()
+    private(set) var productColors: [ProductColor]
     
     
     // MARK: - Init
     
     init(productColors: [String]) {
-        productColors.forEach {
-            self.productColors.append(.init(hex: $0))
+        self.productColors = productColors.map {
+            ProductColor(hex: $0)
         }
     }
 

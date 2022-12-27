@@ -46,20 +46,31 @@ struct BestSellerView: View {
                     }
                 }
                 
-                HStack(alignment: .lastTextBaseline, spacing: 7) {
+                HStack(alignment: .lastTextBaseline) {
                     Text(model.discountedPrice ?? "")
-                        .font(BrandFontStyle.bold(16).font)
+                        .font(
+                            BrandFontStyle.bold(
+                                ScreenSize.isSE3GenAndSmaller ? 10 : 16
+                            )
+                            .font
+                        )
                         .foregroundColor(.black)
+                    
+                    Spacer()
+                    
                     Text(model.originalPrice ?? "")
                         .strikethrough()
-                        .font(BrandFontStyle.regular(10).font)
+                        .font(
+                            BrandFontStyle.regular(
+                                ScreenSize.isSE3GenAndSmaller ? 8 : 10
+                            )
+                            .font
+                        )
                         .foregroundColor(.gray)
-                    Spacer()
                 }
-                .padding(.leading, 21)
+                .padding(.horizontal)
                 .padding(.bottom, 5)
                 
-            
                 HStack {
                     Text(model.title ?? "")
                         .font(BrandFontStyle.regular(10).font)
@@ -67,7 +78,7 @@ struct BestSellerView: View {
                     Spacer()
                 }
                 .padding(.bottom, 15)
-                .padding(.leading, 21)
+                .padding(.horizontal)
             }
             
         }

@@ -14,7 +14,7 @@ extension Int {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = currencyCode
-        formatter.decimalSeparator = ","
+        formatter.currencyGroupingSeparator = ","
         formatter.maximumFractionDigits = 0
 
         let nsNumber = NSNumber(value: self)
