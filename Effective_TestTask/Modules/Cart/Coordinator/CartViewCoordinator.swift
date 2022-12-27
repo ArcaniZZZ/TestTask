@@ -13,14 +13,19 @@ final class CartViewCoordinator: Coordinator {
     
     var rootViewController = UIViewController()
     
+    private let viewModel: CartView.ViewModel
+    
 
     // MARK: - Init
     
+    init(viewModel: CartView.ViewModel) {
+        self.viewModel = viewModel
+    }
 
     // MARK: - Coordinator Protocol
     
     func start() {
-        let view = CartView()
+        let view = CartView(viewModel: viewModel)
         rootViewController = CommonHostingViewController(wrappedView: .cart, rootView: view)
     }
 }

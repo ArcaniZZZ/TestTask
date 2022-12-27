@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 final class MainFlowCoordinator: Coordinator {
     
     // MARK: - Properties
+    
+    @ObservedObject
+    private var productsInCart = ProductsInCart()
     
     var rootViewController = UINavigationController()
     
@@ -32,7 +36,9 @@ final class MainFlowCoordinator: Coordinator {
     }
     
     func didChooseProduct() {
-        let detailViewModel = DetailView.ViewModel(requestManager: RequestManager())
+        let detailViewModel = DetailView.ViewModel(
+            requestManager: RequestManager(),
+            productsInCart: productsInCart)
     
         let detailViewCoordinator = DetailViewCoordinator(
             detailViewModel: detailViewModel,
@@ -47,7 +53,9 @@ final class MainFlowCoordinator: Coordinator {
     }
     
     private func openCartModule() {
-        let cartCoordinator = CartViewCoordinator()
+        let cartViewModel = CartView.ViewModel(productsInCart: productsInCart)
+        
+        let cartCoordinator = CartViewCoordinator(viewModel: cartViewModel)
         cartCoordinator.start()
         
         childCoordinators.append(cartCoordinator)

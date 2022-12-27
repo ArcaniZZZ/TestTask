@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 extension DetailView {
     
@@ -22,11 +23,8 @@ extension DetailView {
         @Published
         var product: Product?
         
-        @Published
-        private var productColorsModel: ProductColors?
-        
-        @Published
-        private var memoryCapacitiesModel: ProductCapacities?
+        @ObservedObject
+        private var productsInCart: ProductsInCart
         
         var productColors: [ProductColor]? {
             productColorsModel?.productColors
@@ -36,12 +34,19 @@ extension DetailView {
             memoryCapacitiesModel?.productCapacities
         }
         
+        private var productColorsModel: ProductColors?
+        private var memoryCapacitiesModel: ProductCapacities?
+        
         private let requestManager: RequestManagerProtocol
         
         
         // MARK: - Init
         
-        init(requestManager: RequestManagerProtocol) {
+        init(
+            requestManager: RequestManagerProtocol,
+            productsInCart: ProductsInCart
+        ) {
+            self.productsInCart = productsInCart
             self.requestManager = requestManager
         }
         
@@ -56,9 +61,16 @@ extension DetailView {
             memoryCapacitiesModel?.didChooseCapacity(capacity)
         }
         
-        func selectFirstColor() {
-            productColorsModel?.selectFirstColor()
+        func didTapAddToCartButton() {
+            guard let product else {
+                return
+            }
+            productsInCart.addProductToCart(product)
         }
+        
+        //        func selectFirstColor() {
+        //            productColorsModel?.selectFirstColor()
+        //        }
         
         @MainActor
         func fetchProduct() async throws {

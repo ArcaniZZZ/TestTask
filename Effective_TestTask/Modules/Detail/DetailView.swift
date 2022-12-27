@@ -202,7 +202,9 @@ struct DetailView: View {
     // MARK: - Private Methods
     
     private func didTapAddFavoriteButton() {}
-    private func didTapAddToCartButton() {}
+    private func didTapAddToCartButton() {
+        viewModel.didTapAddToCartButton()
+    }
     
 }
 

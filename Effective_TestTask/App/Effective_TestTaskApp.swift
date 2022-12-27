@@ -14,29 +14,7 @@ struct Effective_TestTaskApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-//                HomeView(viewModel: .init(requestManager: RequestManager()))
-//                VStack {
-//                    Spacer()
-//                    
-//                    HStack(spacing: 52) {
-//                        Spacer()
-//                        Image(systemName: "network")
-//                        Image(systemName: "person")
-//                        Image(systemName: "pencil")
-//                        Image(systemName: "paperclip")
-//                        Spacer()
-//                    }
-//                    .foregroundColor(.white)
-//                    .frame(height: 72)
-//                    .background {
-//                        RoundedRectangle(cornerRadius: 30)
-//                            .foregroundColor(
-//                                UIConstants.BrandColor.backgroundSecondary.color
-//                            )
-//                    }
-//                }
-            }
+            Text("Hello World")
         }
     }
 }
