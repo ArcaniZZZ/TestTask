@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 extension HomeView {
     
@@ -24,28 +25,32 @@ extension HomeView {
         
         // MARK: - Properties
         
-        @Published
-        var mainScreenModel: MainScreen?
-        
-        @Published
-        var chosenProduct: Product?
-        
-        @Published
-        private var categoriesModel = createCategories()
+        @Published var mainScreenModel: MainScreen?
+        @Published var chosenProduct: Product?
+        @Published private var categoriesModel = createCategories()
         
         var categories: Array<Categories<CategoryType>.Category> {
             categoriesModel.categories
         }
         
-        var didChooseProductAction: SimpleClosure?
+        var numberOfProductsInCart = 0
         
+        private weak var coordinator: MainFlowCoordinator?
+        private var subscriptions = Set<AnyCancellable>()
+        private let cartManager: CartManagerProtocol
         private let requestManager: RequestManagerProtocol
         
         
         // MARK: - Init
         
-        init(requestManager: RequestManagerProtocol) {
-            self.requestManager = requestManager
+        init(
+            requestManager: RequestManagerProtocol = ManagerFactory.shared.requestManager,
+            cartManager: CartManagerProtocol = ManagerFactory.shared.cartManager,
+            coordinator: MainFlowCoordinator
+        ) {
+            self.cartManager = ManagerFactory.shared.cartManager
+            self.requestManager = ManagerFactory.shared.requestManager
+            self.coordinator = coordinator
         }
         
         
@@ -57,11 +62,29 @@ extension HomeView {
         
         @MainActor
         func viewIsReady() async throws {
+            setupCartSubscriber()
             mainScreenModel = try await requestManager.perform(HomeViewRequest())
+        }
+        
+        func didChooseProduct() {
+            coordinator?.openDetailModule()
+        }
+        
+        func didTapTabBarCartButton() {
+            coordinator?.openCartModule()
         }
         
         
         // MARK: - Private Methods
+        
+        private func setupCartSubscriber() {
+            cartManager.productsInCartPublisher
+                .subscribe(on: DispatchQueue.main)
+                .sink { [weak self] products in
+                    self?.numberOfProductsInCart = products.count
+                }
+                .store(in: &subscriptions)
+        }
         
         private static func createCategories() -> Categories<CategoryType> {
             let numberOfCategories = CategoryType.allCases.count

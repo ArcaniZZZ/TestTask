@@ -25,14 +25,9 @@ struct DetailView: View {
     
     // MARK: - Properties
     
-    @StateObject
-    var viewModel: DetailView.ViewModel
-    
-    @GestureState
-    private var dragOffset: CGFloat = 0
-    
-    @State
-    private var currentImageIndex = 0
+    @StateObject var viewModel: ViewModel
+    @GestureState private var dragOffset: CGFloat = 0
+    @State private var currentImageIndex = 0
     
     private var isFirstImage: Bool {
         currentImageIndex == 0

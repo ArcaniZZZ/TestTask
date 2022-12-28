@@ -102,6 +102,8 @@ class CommonHostingViewController<Content: View>: UIHostingController<Content> {
             
         case .detail:
             title = Texts.detailTitle
+            navigationController?.navigationBar.prefersLargeTitles = false
+
         default:
             break
         }
@@ -113,7 +115,7 @@ class CommonHostingViewController<Content: View>: UIHostingController<Content> {
     private func setupRightBarItem() {
         
         var image: UIImage? = nil
-        
+    
         switch wrappedView {
         case .detail:
             image = Images.cartRigtBarButton()?.withRenderingMode(.alwaysOriginal)

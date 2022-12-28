@@ -9,3 +9,8 @@
 protocol Coordinator {
     func start()
 }
+
+protocol MainFlowCoordinator: Coordinator, AnyObject {
+    func openDetailModule()
+    func openCartModule()
+}

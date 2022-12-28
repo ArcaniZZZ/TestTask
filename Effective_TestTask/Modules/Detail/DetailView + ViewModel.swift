@@ -20,34 +20,33 @@ extension DetailView {
         
         // MARK: - Properties
         
-        @Published
-        var product: Product?
-        
-        @ObservedObject
-        private var productsInCart: ProductsInCart
+        @Published var product: Product?
+        @Published private var productColorsModel: ProductColors?
+        @Published private var memoryCapacitiesModel: ProductCapacities?
         
         var productColors: [ProductColor]? {
             productColorsModel?.productColors
         }
-        
         var productCapacities: [Capacity]? {
             memoryCapacitiesModel?.productCapacities
         }
         
-        private var productColorsModel: ProductColors?
-        private var memoryCapacitiesModel: ProductCapacities?
-        
+        private weak var coordinator: MainFlowCoordinator?
+        private let cartManager: CartManagerProtocol
         private let requestManager: RequestManagerProtocol
         
         
         // MARK: - Init
         
         init(
-            requestManager: RequestManagerProtocol,
-            productsInCart: ProductsInCart
+            requestManager: RequestManagerProtocol = ManagerFactory.shared.requestManager,
+            cartManager: CartManagerProtocol = ManagerFactory.shared.cartManager,
+            coordinator: MainFlowCoordinator
+            
         ) {
-            self.productsInCart = productsInCart
             self.requestManager = requestManager
+            self.cartManager = cartManager
+            self.coordinator = coordinator
         }
         
         
@@ -62,15 +61,10 @@ extension DetailView {
         }
         
         func didTapAddToCartButton() {
-            guard let product else {
-                return
+            if let product {
+                cartManager.addProductToCart(product)
             }
-            productsInCart.addProductToCart(product)
         }
-        
-        //        func selectFirstColor() {
-        //            productColorsModel?.selectFirstColor()
-        //        }
         
         @MainActor
         func fetchProduct() async throws {

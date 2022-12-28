@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 final class ApplicationCoordinator: Coordinator {
-  
+   
     // MARK: - Properties
     
     var childCoordinators = [Coordinator]()
@@ -31,7 +31,7 @@ final class ApplicationCoordinator: Coordinator {
     func start() {
         hasSeenOnboarding.sink { [weak self] hasSeen in
             if hasSeen {
-                let mainFlowCoordinator = MainFlowCoordinator()
+                let mainFlowCoordinator = MainFlow()
                 mainFlowCoordinator.start()
                 self?.childCoordinators = [mainFlowCoordinator]
                 self?.window.rootViewController = mainFlowCoordinator.rootViewController

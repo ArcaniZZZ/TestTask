@@ -18,6 +18,11 @@ enum Texts {
     static let homeScreenBestSellers = "Best Sellers"
     
     
+    // MARK: - HomeScreenTabBar
+    
+    static let homeScreenTabBarRating = "Exlporer"
+    
+    
     // MARK: - CarouselBanner
     
     static let carouselBannerNewBadgeTitle = "New"
@@ -42,5 +47,13 @@ enum Texts {
     static let detailAddToCartButtonTitle = "Add to cart"
     static let detailsSelectColorAndCapacity = "Select color and capacity"
     static let detailsAddToCartButtonTitle = "Add to Cart"
+    
+    
+    // MARK: - CartView
+    
+    static let cartTitle = "My Cart"
+    static let cartTotal = "Total"
+    static let cartDelivery = "Delivery"
+    static let cartCheckoutButtonTitle = "Checkout"
 
 }

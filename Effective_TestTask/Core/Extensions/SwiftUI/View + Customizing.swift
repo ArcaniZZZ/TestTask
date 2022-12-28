@@ -9,26 +9,13 @@ import SwiftUI
 
 extension View {
     
-    /// Задаёт фрейм по значению CGSize.
+    /// Creates frame with CGSize.
     func frame(_ size: CGSize? = nil, alignment: Alignment = .center) -> some View {
         frame(width: size?.width, height: size?.height, alignment: alignment)
     }
     
-    /// Создает квадратный фрейм
+    /// Creates square frame.
     func squaredFrame(squareSide: CGFloat, alignment: Alignment = .center) -> some View {
         frame(width: squareSide, height: squareSide, alignment: alignment)
     }
-    
-    
-    func bottomSheet(
-        viewModel: BottomSheetModifier.Model,
-        isShowing: Binding<Bool>
-    ) -> some View {
-        modifier(
-            BottomSheetModifier(
-                isShowing: isShowing,
-                viewModel: viewModel)
-        )
-    }
-    
 }

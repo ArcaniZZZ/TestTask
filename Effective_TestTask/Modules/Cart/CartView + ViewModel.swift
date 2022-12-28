@@ -6,22 +6,55 @@
 //
 
 import SwiftUI
+import Combine
 
 extension CartView {
     
     final class ViewModel: ObservableObject {
         
-        @ObservedObject
-        private var productsInCart: ProductsInCart
+        // MARK: - Properties
         
-        var productsCount: Int {
-            productsInCart.products.count
+        @Published var total: Int = 0
+        @Published var deliveryPrice = ""
+        @Published var productsInCart = [CartProduct]()
+        
+        private weak var coordinator: MainFlowCoordinator?
+        private var subscriptions = Set<AnyCancellable>()
+        private let cartManager: CartManagerProtocol
+        private let requestManager: RequestManagerProtocol
+        
+    
+        // MARK: - Init
+        
+        init(
+            requestManager: RequestManagerProtocol = ManagerFactory.shared.requestManager,
+            cartManager: CartManagerProtocol = ManagerFactory.shared.cartManager,
+            coordinator: MainFlowCoordinator
+            
+        ) {
+            self.requestManager = requestManager
+            self.cartManager = cartManager
+            self.coordinator = coordinator
         }
         
-        init(productsInCart: ProductsInCart) {
-            self.productsInCart = productsInCart
+        
+        // MARK: - Public Methods
+        
+        func viewIsReady() async throws {
+            try await fetchProductsInCart()
         }
         
-    }
+        
+        // MARK: - Private Methods
+        
+        @MainActor
+        private func fetchProductsInCart() async throws {
+            if let cart: Cart = try await requestManager.perform(CartViewRequest()) {
+                total = cart.total
+                deliveryPrice = cart.delivery
+                productsInCart = cart.basket
+            }
+        }
 
+    }
 }

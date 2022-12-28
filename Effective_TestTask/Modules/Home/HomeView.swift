@@ -27,14 +27,9 @@ struct HomeView: View {
     
     // MARK: - Properties
     
-    @StateObject
-    var viewModel: ViewModel
-    
-    @State
-    private var searchFieldText = ""
-    
-    @State
-    private var isShowingFiltersSheet = false
+    @StateObject var viewModel: ViewModel
+    @State private var searchFieldText = ""
+    @State private var isShowingFiltersSheet = false
     
     private let requestManager = RequestManager()
     private let gridItemLayout = [
@@ -116,10 +111,7 @@ struct HomeView: View {
                                     )
                                     .frame(height: Locals.bestSellerCellHeight)
                                     .onTapGesture {
-                                        if let didChooseProduct = viewModel.didChooseProductAction {
-                                            didChooseProduct()
-                                        }
-                                        
+                                        viewModel.didChooseProduct()
                                     }
                                 }
                             }
@@ -147,14 +139,25 @@ struct HomeView: View {
                     try? await viewModel.viewIsReady()
                 }
             }
+            .padding(.horizontal)
             .task {
                 try? await viewModel.viewIsReady()
             }
         }
+        .tabBarMenu(
+            viewModel: .init(
+                bottomSheetType: .homeViewTabBar(
+                    model: .init(
+                        cartButtonAction: viewModel.didTapTabBarCartButton,
+                        numberOfProductsInCart: viewModel.numberOfProductsInCart
+                    )
+                )
+            )
+        )
         .padding(.top, 25)
-        .padding(.horizontal)
         .background(UIConstants.BrandColor.background.color)
     }
+    
     
     
     // MARK: - Private Methods
@@ -168,13 +171,6 @@ struct HomeView: View {
     private func didTapSeeMoreButton() { }
     private func didTapFilterButton() {
         isShowingFiltersSheet.toggle()
-    }
-    
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(viewModel: .init(requestManager: RequestManager()))
     }
 }
 

@@ -8,6 +8,10 @@
 import SwiftUI
 
 final class DetailViewCoordinator: Coordinator {
+    func openDetailModule() {    }
+    
+    func openCartModule() { }
+    
 
     // MARK: - Properties
     
