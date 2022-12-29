@@ -31,14 +31,7 @@ class DataParser {
 // MARK: - DataParserProtocol
 extension DataParser: DataParserProtocol {
     func parse<T: Decodable>(data: Data) throws -> T {
-        
-        
-    
-        print(data)
-   
-        
-        
-        return try jsonDecoder.decode(T.self, from: data)
+        try jsonDecoder.decode(T.self, from: data)
     }
 }
 

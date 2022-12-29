@@ -11,18 +11,10 @@ struct CartView: View {
     
     // MARK: - Properties
     
-    @ObservedObject
-    private var viewModel: ViewModel
+    @StateObject var viewModel: ViewModel
     
-    
-    // MARK: - Init
-    
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    
-    // MARK: - Init
+
+    // MARK: - Drawing
     
     var body: some View {
         

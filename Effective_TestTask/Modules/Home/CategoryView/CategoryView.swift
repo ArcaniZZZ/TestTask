@@ -9,7 +9,12 @@ import SwiftUI
 
 struct CategoryView: View {
     
+    // MARK: - Properties
+    
     let model: Model
+    
+    
+    // MARK: - Drawing
     
     var body: some View {
         VStack {

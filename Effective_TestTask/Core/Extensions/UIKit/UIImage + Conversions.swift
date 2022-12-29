@@ -9,7 +9,7 @@ import SwiftUI
 
 extension UIImage {
     
-    /// Конвертирует в SwiftUI Image.
+    /// Converts UIImage to Image.
     var image: Image {
         .init(uiImage: self)
     }

@@ -9,6 +9,7 @@ import Foundation
 
 extension Int {
     
+    /// Converts Int to String formatted as price
     func formatAsPrice(currencyCode: String) -> String {
         
         let formatter = NumberFormatter()

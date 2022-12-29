@@ -9,6 +9,7 @@ import SwiftUI
 
 extension Color {
     
+    /// Creates Color from hex
     public init?(hex: String) {
         let red, green, blue: CGFloat
         
