@@ -37,8 +37,6 @@ extension RequestProtocol {
     
     func createURLRequest() throws -> URLRequest {
         
-        //1
-        
         var components = URLComponents()
         components.scheme = "https"
         components.host = host
